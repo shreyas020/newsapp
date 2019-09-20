@@ -3,6 +3,6 @@ class Catalog < ApplicationRecord
     has_many :articles
     has_many :polls 
     has_many :galleries 
-    validates :name, presence: true
+    validates :name, presence: true, uniqueness: { case_sensitive: false }
     validates :ctype, inclusion: { in: %w(article poll gallery), message: "%{value} is not a valid catalog_type" }
 end

@@ -11,11 +11,11 @@ class ApplicationController < ActionController::Base
     def response_fields(type)
         response_fields_array = case type
                                 when 'catalogs'
-                                    [:id, :name, :ctype]
+                                    [:id, :ctype, :name]
                                 when 'playlists'
                                     [:id, :name, :title]
                                 when 'articles'
-                                    [:id, :title, :short_description, :long_description, :status]
+                                    [:id, :title, :short_description, :long_description, :status, :catalog_id]
                                 end
     end
 end

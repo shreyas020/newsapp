@@ -2,10 +2,10 @@ class ArticlesController < ApplicationController
   before_action :set_article_id
   def index
     #@catalog = Catalog.find(params[:catalog_id])
-    @article= @catalog.articles.all
+    @articles = @catalog.articles.all
     #Rails.logger.debug "#{@article.inspect}"
     #render json: {article: @article}, status: :ok
-    render json: {article: response_data('articles', @article)}, status: :ok
+    render json: {article: response_data('articles', @articles)}, status: :ok
   
   end
 

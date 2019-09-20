@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_19_050927) do
+ActiveRecord::Schema.define(version: 2019_09_20_091758) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2019_09_19_050927) do
     t.string "title", null: false
     t.string "long_description"
     t.string "short_description"
-    t.string "status", default: "created"
+    t.integer "status", default: 0
     t.datetime "published_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -36,25 +36,49 @@ ActiveRecord::Schema.define(version: 2019_09_19_050927) do
     t.index ["name"], name: "index_catalogs_on_name"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.string "url"
+    t.bigint "commentable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commentable_id"], name: "index_comments_on_commentable_id"
+  end
+
   create_table "galleries", force: :cascade do |t|
     t.string "title"
     t.string "description"
     t.datetime "published_at"
-    t.string "status", default: "created"
+    t.integer "status", default: 0
     t.bigint "catalog_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["catalog_id"], name: "index_galleries_on_catalog_id"
   end
 
+  create_table "media", force: :cascade do |t|
+    t.string "url"
+    t.bigint "mediable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mediable_id"], name: "index_media_on_mediable_id"
+  end
+
   create_table "polls", force: :cascade do |t|
     t.string "title"
     t.string "description"
-    t.string "status"
+    t.integer "status", default: 0
     t.bigint "catalog_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["catalog_id"], name: "index_polls_on_catalog_id"
+  end
+
+  create_table "thumbnails", force: :cascade do |t|
+    t.string "url"
+    t.bigint "thumbnailable_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["thumbnailable_id"], name: "index_thumbnails_on_thumbnailable_id"
   end
 
   add_foreign_key "galleries", "catalogs"

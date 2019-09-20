@@ -4,7 +4,7 @@ class CreateArticles < ActiveRecord::Migration[6.0]
       t.string :title, null: false
       t.string :long_description
       t.string :short_description
-      t.string :status, default: :created
+      t.integer :status, default: 0
       t.datetime :published_at
 
       t.timestamps
