@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Catalog Table</h2>
+
+<table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>Ctype</th> 
+    <th>Created_at</th>
+    <th>Updated_at</th>
+  </tr>
+  <% @catalogs.each do |catalog| %>
+  <tr>
+    <td><%= catalog.name %></td>
+    <td><%= catalog.ctype %></td>
+    <td><%= catalog.created_at %></td>
+    <td><%= catalog.updated_at %></td>
+  </tr>
+  <% end %>
+</table>
+
+</body>
+</html>
