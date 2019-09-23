@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
                                     [:id, :ctype, :name]
                                 when 'playlists'
                                     [:id, :name, :title]
+                                when 'comments'
+                                    [:comment_body]
                                 when 'articles'
                                     [:id, :title, :short_description, :long_description, :status, :catalog_id]
                                 end

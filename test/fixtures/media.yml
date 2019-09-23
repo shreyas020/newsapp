@@ -2,8 +2,6 @@
 
 one:
   url: MyString
-  mediable: one
 
 two:
   url: MyString
-  mediable: two

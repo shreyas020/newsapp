@@ -2,8 +2,6 @@
 
 one:
   url: MyString
-  thumbnailable: one
 
 two:
   url: MyString
-  thumbnailable: two

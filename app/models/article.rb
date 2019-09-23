@@ -13,7 +13,7 @@ class Article < ApplicationRecord
     validates :short_description, presence: true
     validates :status, inclusion: { in: %w(created composed published recomposed republished unpublished rejected), message: "%{value} is not a valid status_type" }
 
-    has_many :medias, as: :mediable
+    has_many :media, as: :mediable
     has_one :thumbnails, as: :thumbnailable
-    has_many :comments, as: :commentable
+    has_many :comments, as: :commentable 
 end

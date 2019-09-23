@@ -10,7 +10,7 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @catalog = Catalog.find(params[:catalog_id])
+    #@catalog = Catalog.find(params[:catalog_id])
     if params.has_key?('article') and params.keys[0] == @catalog.ctype
       @article= @catalog.articles.new(article_params)
       if @article.save
@@ -24,9 +24,18 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article =@catalog.articles.find(params[:id])
-    #render json: {article: response_data('articles', @article)}, status: :ok
-    render json: {article: @article}, status: :ok
+    #@article = @catalog.articles.includes(:comments).find(params[:id])
+    @article = @catalog.articles.find(params[:id])
+    @comments = @article.comments.all #select(:comment_body)
+    article ={}
+    article[:article] = @article
+    article[:comments] = response_data('comments', @comments)
+    #@a = @article.(include: @comments.comment_body)
+    render json: { data: article}, status: :ok
+
+    # render json: {article: response_data('articles', @article)}, status: :ok
+    # render json: {article: {@article, comments: @comments}}, status: :ok
+    #render json: {article: @article, comments: @article.comments}, status: :ok
   end
 
   def destroy
