@@ -4,8 +4,8 @@ class ArticlesController < ApplicationController
     #@catalog = Catalog.find(params[:catalog_id])
     @articles = @catalog.articles.all
     #Rails.logger.debug "#{@article.inspect}"
-    #render json: {article: @article}, status: :ok
-    render json: {article: response_data('articles', @articles)}, status: :ok
+    render json: {article: @articles}, status: :ok
+    #render json: {article: response_data('articles', @articles)}, status: :ok
   
   end
 
@@ -24,14 +24,15 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    #@article = @catalog.articles.includes(:comments).find(params[:id])
-    @article = @catalog.articles.find(params[:id])
-    @comments = @article.comments.all #select(:comment_body)
-    article ={}
-    article[:article] = @article
-    article[:comments] = response_data('comments', @comments)
+    @article = @catalog.articles.find(params[:id]).includes(:comments)
+
+    #@article = @catalog.articles.find(params[:id])
+    #@comments = @article.comments.all #select(:comment_body)
+    # article ={}
+    # article[:article] = @article
+    # article[:comments] = response_data('comments', @comments)
     #@a = @article.(include: @comments.comment_body)
-    render json: { data: article}, status: :ok
+    render json: { data: @article}, status: :ok
 
     # render json: {article: response_data('articles', @article)}, status: :ok
     # render json: {article: {@article, comments: @comments}}, status: :ok
@@ -58,7 +59,7 @@ class ArticlesController < ApplicationController
 
   private
   def article_params
-    params.require(:article).permit(:title, :long_description, :short_description, :status  )
+    params.require(:article).permit(:title, :long_description, :short_description, :status, :url  )
   end
 
   def set_article_id

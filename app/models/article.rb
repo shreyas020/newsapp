@@ -16,4 +16,20 @@ class Article < ApplicationRecord
     has_many :media, as: :mediable
     has_one :thumbnails, as: :thumbnailable
     has_many :comments, as: :commentable 
+
+    has_one_attached :url
+
+    # scope :published_at, -> {where(status: :created)} 
+    scope :published_and_commented, -> { where(Article.count > 3) }
+    #scope :created_before, ->(time) { where("created_at < ? ", time) }
+    # def self.created_before(time)
+    #     where("created_at < ?", time)
+    # end
+    scope :active, -> { where status: 'created' }
+    scope :inactive, -> { where status: 'published' }
+=begin
+    
+    scope :created_before, ->(time) { where("created_at < ?", time)  
+    default_scope { where(published_at: published) }
+=end
 end

@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
                                     [:comment_body]
                                 when 'articles'
                                     [:id, :title, :short_description, :long_description, :status, :catalog_id]
+                                when 'galleries'
+                                    [:id, :title, :description, :status]
                                 end
     end
 end

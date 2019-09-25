@@ -1,11 +1,11 @@
 class GalleriesController < ApplicationController
-    before_action :set_article_id
+    before_action :set_gallery_id
   def index
     #@catalog = Catalog.find(params[:catalog_id])
-    @gallery= @catalog.articles.all
+    @gallery= @catalog.galleries.all
     #Rails.logger.debug "#{@article.inspect}"
     #render json: {article: @article}, status: :ok
-    render json: {article: response_data('articles', @gallery)}, status: :ok
+    render json: {article: response_data('galleries', @gallery)}, status: :ok
   
   end
 
@@ -14,9 +14,9 @@ class GalleriesController < ApplicationController
     if params.has_key?('gallery') and params.keys[0] == @catalog.ctype
       @gallery= @catalog.galleries.new(gallery_params)
       if @gallery.save
-        render json: {status: 'SUCECESS', message: 'article saved', data: @gallery}, status: :ok
+        render json: {status: 'SUCECESS', message: 'Gallery saved', data: @gallery}, status: :ok
       else
-        render json: {status: 'UnSUCECESS', message: 'article not saved', data: @gallery.errors}, status: :unprocessable_entity 
+        render json: {status: 'UnSUCECESS', message: 'Gallery not saved', data: @gallery.errors}, status: :unprocessable_entity 
       end
     else 
       render json: {status: 'unsucess'}, status: :unprocessable_entity  
@@ -41,7 +41,7 @@ class GalleriesController < ApplicationController
   def update
     @gallery = @catalog.articles.find(params[:id])
     if @gallery.update(gallery_params)
-      render json: {status: 'SUCECESS', message: 'article saved', data: @gallery}, status: :ok
+      render json: {status: 'SUCECESS', message: 'gallery saved', data: @gallery}, status: :ok
     else 
       render json: {status: "Error", }, status: :unprocessable_entity
     end
@@ -52,7 +52,7 @@ class GalleriesController < ApplicationController
     params.require(:gallery).permit(:title, :description, :status  )
   end
 
-  def set_article_id
+  def set_gallery_id
     @catalog = Catalog.find(params[:catalog_id])
   end
 end
